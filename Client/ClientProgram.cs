@@ -7,6 +7,14 @@ namespace Client
 {
     class ClientProgram
     {
+        // request object
+        class Request
+        {
+            public string method;
+            public string path;
+            public DateTime dateTime;
+        }
+        
         static void Main(string[] args)
         {
             using var client = new TcpClient();
