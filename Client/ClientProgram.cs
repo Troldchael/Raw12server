@@ -7,19 +7,26 @@ namespace Client
 {
     class ClientProgram
     {
-        // request object
+        // request object class
         class Request
         {
             public string method;
             public string path;
             public DateTime dateTime;
-        }
+        } 
         
         static void Main(string[] args)
         {
             using var client = new TcpClient();
             client.Connect(IPAddress.Loopback, 5000);
 
+            Request request = new Request
+			{
+				method = "create";
+				path = "dinmor";
+				dateTime = "dinmortid";
+			}
+            
             var stream = client.GetStream();
 
             var data = Encoding.UTF8.GetBytes("Hello");
