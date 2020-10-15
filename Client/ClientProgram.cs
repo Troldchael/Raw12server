@@ -20,7 +20,8 @@ namespace Client
             using var client = new TcpClient();
             client.Connect(IPAddress.Loopback, 5000);
 
-            Request request = new Request
+		// requets object attempt1
+            Request request1 = new Request
 			{
 				method = "create";
 				path = "dinmor";
