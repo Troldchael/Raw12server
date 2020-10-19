@@ -21,7 +21,7 @@ namespace Client
             client.Connect(IPAddress.Loopback, 5000);
 
 		// requets object attempt1
-            Request request1 = new Request
+            Request request1 = new Request()
 			{
 				method = "create";
 				path = "dinmor";
