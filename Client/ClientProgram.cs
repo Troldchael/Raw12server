@@ -7,16 +7,33 @@ namespace Client
 {
     class ClientProgram
     {
+        // request class
+        class Request
+        {
+            public string method;
+            public string path;
+            public DateTime dateTime;
+        } 
+
         static void Main(string[] args)
         {
             using var client = new TcpClient();
             client.Connect(IPAddress.Loopback, 5000);
 
+            // request1 object
+            Request request1 = new Request();
+
+            // fill values in object
+			request1.method = "create";
+            request1.path = "/test";
+            request1.dateTime =  DateTime.Now;
+
+
             var stream = client.GetStream();
 
-            var data = Encoding.UTF8.GetBytes("Hello");
+            //var data = Encoding.UTF8.GetBytes(request1);
 
-            stream.Write(data);
+            stream.Write(request1);
 
             data = new byte[client.ReceiveBufferSize];
 
@@ -26,5 +43,6 @@ namespace Client
 
             Console.WriteLine($"Message from the server: {msg}");
         }
+
     }
 }

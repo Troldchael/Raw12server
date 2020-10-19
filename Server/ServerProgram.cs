@@ -7,6 +7,13 @@ namespace Server
 {
     class ServerProgram
     {
+        // response object
+        public class Response
+        {
+            public string Status;
+            public string Body;
+        }
+
         static void Main(string[] args)
         {
             var server = new TcpListener(IPAddress.Loopback, 5000);
@@ -24,14 +31,12 @@ namespace Server
 
                 Console.WriteLine($"Message from client {msg}");
 
-                var data = Encoding.UTF8.GetBytes(msg.ToUpper());
+                var data = Encoding.UTF8.GetBytes(msg);
 
                 stream.Write(data);
 
             }
         }
-
-
 
         private static string Read(TcpClient client, NetworkStream stream)
         {
@@ -40,6 +45,7 @@ namespace Server
             var cnt = stream.Read(data);
 
             var msg = Encoding.UTF8.GetString(data, 0, cnt);
+
             return msg;
         }
     }
