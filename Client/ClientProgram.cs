@@ -22,19 +22,21 @@ namespace Client
             client.Connect(IPAddress.Loopback, 5000);
 
             // request1 object
-            var request1 = new Request();
+            var request1 = new Request
+            {
 
-            // fill values in object
-			request1.method = "create";
-            request1.path = "/test";
-            request1.dateTime =  DateTime.Now;
+                // fill values in object
+                method = "create",
+                path = "/test",
+                dateTime = DateTime.Now
+            };
 
             // convert request1 object to JSON
             string requestAsJson = JsonSerializer.Serialize<Request>(request1);
 
             var stream = client.GetStream();
 
-            //convert JSON to BYTE utf8 encoding
+            //convert JSON to bytes utf8 encoding
             var data = Encoding.UTF8.GetBytes(requestAsJson);
 
             stream.Write(data);
@@ -48,9 +50,5 @@ namespace Client
             Console.WriteLine($"Message from the server: {msg}");
         }
 
-    }
-
-    class Request1
-    {
     }
 }
