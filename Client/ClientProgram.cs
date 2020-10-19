@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 
 namespace Client
 {
@@ -28,6 +29,7 @@ namespace Client
             request1.path = "/test";
             request1.dateTime =  DateTime.Now;
 
+            string requestAsJson = JsonSerializer.Serialize<Request1>(request1);
 
             var stream = client.GetStream();
 
@@ -44,5 +46,9 @@ namespace Client
             Console.WriteLine($"Message from the server: {msg}");
         }
 
+    }
+
+    class Request1
+    {
     }
 }
