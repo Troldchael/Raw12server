@@ -8,8 +8,9 @@ namespace Server
 {
     class ServerProgram
     {
-        // request class idea
-        public class Request
+        // response class idea
+        // not implemented
+        public class Response
         {
             public string method { get; set; }
             public string path { get; set; }
