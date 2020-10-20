@@ -8,7 +8,7 @@ namespace Server
 {
     class ServerProgram
     {
-        //din mors klasse
+        // request class idea
         public class Request
         {
             public string method { get; set; }
@@ -33,6 +33,7 @@ namespace Server
 
                 Console.WriteLine($"Message from client {msg}");
 
+                // try to respond to RequestWithoutMethod_MissingMethodError
                 if (msg.Contains("{}"))
                 {
                     var methodError = new
@@ -51,7 +52,9 @@ namespace Server
                 {
                     Console.WriteLine("doesnt contain!");
                 }
+                // end 
 
+                // 
                 var response1 = new
                 {
                     status = "4 bad request",
