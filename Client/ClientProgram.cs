@@ -8,31 +8,23 @@ namespace Client
 {
     class ClientProgram
     {
-        // request class
-        class Request
-        {
-            public string method;
-            public string path;
-            public DateTime dateTime;
-        } 
-
         static void Main(string[] args)
         {
             using var client = new TcpClient();
             client.Connect(IPAddress.Loopback, 5000);
 
-            // request1 object
-            var request1 = new Request
+            var request1 = new
             {
-
                 // fill values in object
                 method = "create",
                 path = "/test",
-                dateTime = DateTime.Now
+                dateTime = UnixTimestamp()
             };
 
+            Console.WriteLine("REQUESTOBJECT TEST: " + request1);
+
             // convert request1 object to JSON
-            string requestAsJson = JsonSerializer.Serialize<Request>(request1);
+            string requestAsJson = JsonSerializer.Serialize(request1);
 
             var stream = client.GetStream();
 
@@ -50,5 +42,9 @@ namespace Client
             Console.WriteLine($"Message from the server: {msg}");
         }
 
+        private static string UnixTimestamp()
+        {
+            return DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
+        }
     }
 }
