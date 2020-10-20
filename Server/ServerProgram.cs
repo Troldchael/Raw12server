@@ -8,6 +8,14 @@ namespace Server
 {
     class ServerProgram
     {
+        //din mors klasse
+        public class Request
+        {
+            public string method { get; set; }
+            public string path { get; set; }
+            public string date { get; set; }
+        }
+
         static void Main(string[] args)
         {
             var server = new TcpListener(IPAddress.Loopback, 5000);
@@ -19,25 +27,42 @@ namespace Server
                 var client = server.AcceptTcpClient();
                 Console.WriteLine("Accepted client!");
 
-                var response1 = new
-                {
-                    method = "",
-                    path = "",
-                    dateTime = UnixTimestamp()
-                };
-
                 var stream = client.GetStream();
            
                 var msg = Read(client, stream);
 
                 Console.WriteLine($"Message from client {msg}");
 
-                // convert request1 object to JSON
-                var requestAsJson = JsonSerializer.Serialize(msg);
+                if (msg.Contains("{}"))
+                {
+                    var methodError = new
+                    {
+                        status = "missing method",
+                        path = "",
+                        dateTime = UnixTimestamp(),
+                        body = (String)null
+                    };
 
-                var dataJson = requestAsJson.ToUpper();
+                    var me = JsonSerializer.Serialize(methodError);
 
-                var data = Encoding.UTF8.GetBytes(dataJson);
+                    stream.Write(Encoding.UTF8.GetBytes(me));
+
+                } else
+                {
+                    Console.WriteLine("doesnt contain!");
+                }
+
+                var response1 = new
+                {
+                    status = "4 bad request",
+                    path = "",
+                    dateTime = UnixTimestamp(),
+                    body = (String)null
+                };
+
+                var requestAsJson = JsonSerializer.Serialize(response1);
+
+                var data = Encoding.UTF8.GetBytes(requestAsJson);
 
                 stream.Write(data);
 
