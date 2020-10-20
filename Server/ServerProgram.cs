@@ -9,10 +9,10 @@ namespace Server
     class ServerProgram
     {
         // response class idea
-        // not implemented
+        // not implemented. we couldnt get object to return values for compare/contains
         public class Response
         {
-            public string method { get; set; }
+            public string status { get; set; }
             public string path { get; set; }
             public DateTime date { get; set; }
         }
@@ -29,7 +29,7 @@ namespace Server
                 Console.WriteLine("Accepted client!");
 
                 var stream = client.GetStream();
-           
+
                 var msg = Read(client, stream);
 
                 Console.WriteLine($"Message from client {msg}");
@@ -46,30 +46,26 @@ namespace Server
                     };
 
                     var me = JsonSerializer.Serialize(methodError);
-
                     stream.Write(Encoding.UTF8.GetBytes(me));
 
-                } else
-                {
-                    Console.WriteLine("doesnt contain!");
                 }
                 // end 
 
                 // try to respond to RequestWithInvalidPath_StatusBadRequest
-                var badreq = new
-                {
-                    status = "4 bad request",
-                    path = "",
-                    dateTime = UnixTimestamp(),
-                    body = (String)null
-                };
+                if (msg.Contains("/api/xxx")) { 
 
-                var requestAsJson = JsonSerializer.Serialize(badreq);
+                    var badRequest = new
+                    {
+                        status = "4 bad request",
+                        path = "",
+                        dateTime = UnixTimestamp(),
+                        body = (String)null
+                    };
 
-                var data = Encoding.UTF8.GetBytes(requestAsJson);
-
-                stream.Write(data);
-
+                    var br = JsonSerializer.Serialize(badRequest);
+                    stream.Write(Encoding.UTF8.GetBytes(br));
+                }
+                // end
             }
         }
 
