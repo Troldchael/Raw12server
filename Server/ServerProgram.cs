@@ -55,8 +55,8 @@ namespace Server
                 }
                 // end 
 
-                // 
-                var response1 = new
+                // try to respond to RequestWithInvalidPath_StatusBadRequest
+                var badreq = new
                 {
                     status = "4 bad request",
                     path = "",
@@ -64,7 +64,7 @@ namespace Server
                     body = (String)null
                 };
 
-                var requestAsJson = JsonSerializer.Serialize(response1);
+                var requestAsJson = JsonSerializer.Serialize(badreq);
 
                 var data = Encoding.UTF8.GetBytes(requestAsJson);
 
