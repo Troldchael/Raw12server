@@ -14,7 +14,7 @@ namespace Server
         {
             public string method { get; set; }
             public string path { get; set; }
-            public string date { get; set; }
+            public DateTime date { get; set; }
         }
 
         static void Main(string[] args)
