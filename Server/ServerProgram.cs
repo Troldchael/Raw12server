@@ -13,8 +13,7 @@ namespace Server
         public class Response
         {
             public string status { get; set; }
-            public string path { get; set; }
-            public DateTime date { get; set; }
+            public string body { get; set; }
         }
 
         static void Main(string[] args)
@@ -40,8 +39,6 @@ namespace Server
                     var methodError = new
                     {
                         status = "missing method",
-                        path = "",
-                        dateTime = UnixTimestamp(),
                         body = (String)null
                     };
 
@@ -58,8 +55,6 @@ namespace Server
                     var badRequest = new
                     {
                         status = "4 bad request",
-                        path = "",
-                        dateTime = UnixTimestamp(),
                         body = (String)null
                     };
 
