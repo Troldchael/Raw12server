@@ -62,6 +62,11 @@ namespace Server
                     stream.Write(Encoding.UTF8.GetBytes(br));
                 }
                 // end
+
+                // respond to rest
+                var data = Encoding.UTF8.GetBytes(msg.ToUpper());
+                stream.Write(data);
+                // end
             }
         }
 
