@@ -25,10 +25,10 @@ namespace Server
 
             while (true)
             {
-                var client = server.AcceptTcpClient();
+                TcpClient client = server.AcceptTcpClient();
                 Console.WriteLine("Accepted client!");
 
-                var stream = client.GetStream();
+                NetworkStream stream = client.GetStream();
 
                 var msg = Read(client, stream);
 
@@ -52,7 +52,8 @@ namespace Server
                 // end 
 
                 // try to respond to RequestWithInvalidPath_StatusBadRequest
-                if (msg.Contains("/api/xxx")) { 
+                if (msg.Contains("/api/xxx"))
+                {
 
                     var badRequest = new
                     {
